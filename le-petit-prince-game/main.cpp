@@ -16,7 +16,6 @@ std::shared_ptr<SDL_Texture> load_image(SDL_Renderer *renderer, const std::strin
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create surface from image: %s", SDL_GetError());
         throw std::invalid_argument(SDL_GetError());
     }
-    SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format,0, 255, 255));
     texture = SDL_CreateTextureFromSurface(renderer, surface);
     if (!texture) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create texture from surface: %s", SDL_GetError());
@@ -44,7 +43,7 @@ int main(int argc, char *argv[])
         std::cerr << "Failed to create window and renderer: " << SDL_GetError() << std::endl;
         return -1;
     }
-    SDL_SetWindowTitle(window, "Eclipse game");
+    SDL_SetWindowTitle(window, "Le petit prince game");
 
     auto background_texture = load_image(renderer, "assets/background.bmp");
 
@@ -69,14 +68,18 @@ int main(int argc, char *argv[])
                     break;
             }
         }
+        fox.handle_keyboard();
 
         game_time += dt;
+
+        fox.update_state(dt, map);
 
         SDL_RenderClear(renderer); // re-draw the window
         SDL_RenderCopy(renderer, background_texture.get(), NULL, NULL);
         time_counter.draw();
-        fox.draw();
         map.draw();
+        fox.draw();
+
         SDL_RenderPresent(renderer);
 
         current_time = current_time + std::chrono::microseconds((long long int)(dt*1000000.0));

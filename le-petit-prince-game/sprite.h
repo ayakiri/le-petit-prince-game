@@ -1,9 +1,6 @@
-#include <SDL.h>
-#include <iostream>
-#include <chrono>
-#include <algorithm>
 #include "time_counter.h"
-
+using Clock = std::chrono::high_resolution_clock;
+using TimeStamp = std::chrono::time_point<Clock>;
 struct Sprite {
     Sprite(SDL_Renderer *renderer, const std::string filename, const int width) : width(width) {
         SDL_Surface *surface = SDL_LoadBMP(filename.c_str());
@@ -17,6 +14,7 @@ struct Sprite {
         }
         height  = surface->h;
         nframes = surface->w/width;
+        SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format,234, 63, 247));
         texture = SDL_CreateTextureFromSurface(renderer, surface);
         SDL_FreeSurface(surface);
     }
@@ -29,7 +27,7 @@ struct Sprite {
         if (texture) SDL_DestroyTexture(texture);
     }
 
-    SDL_Texture *texture = nullptr; // well duh
+    SDL_Texture *texture = nullptr;
     int width   = 0; // single sprite width (texture width = width * nframes)
     int height  = 0; // sprite height
     int nframes = 0; // number of frames in the animation sequence
