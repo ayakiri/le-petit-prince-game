@@ -43,15 +43,15 @@ struct Map {
     static constexpr int w = 16; // overall map dimensions
     static constexpr int h = 12;
     static constexpr char level[w*h+1] = "  01111111111111"\
-                                         "2              0"\
-                                         "2              0"\
-                                         "2              0"\
+                                         "2               "\
+                                         "           02   "\
+                                         "                "\
                                          "2              0"\
                                          "111112   01112  "\
                                          "                "\
                                          "                "\
                                          "      02        "\
-                                         "                "\
+                                         "             012"\
                                          "                "\
                                          "1111111111111111";
 };

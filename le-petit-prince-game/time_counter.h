@@ -1,7 +1,6 @@
 #ifndef C___TIME_COUNTER_H
 #define C___TIME_COUNTER_H
 
-#include <chrono>
 #include "sprite.h"
 
 
