@@ -6,6 +6,7 @@
 #include "time_counter.h"
 #include "map.h"
 #include "fox.h"
+#include "menu.h"
 
 std::shared_ptr<SDL_Texture> load_image(SDL_Renderer *renderer, const std::string &file_path) {
     SDL_Surface *surface;
@@ -27,7 +28,6 @@ std::shared_ptr<SDL_Texture> load_image(SDL_Renderer *renderer, const std::strin
     }};
 }
 
-
 int main(int argc, char *argv[])
 {
     if (SDL_Init(SDL_INIT_VIDEO)) {
@@ -41,11 +41,24 @@ int main(int argc, char *argv[])
 
     if (SDL_CreateWindowAndRenderer(1024, 768, SDL_WINDOW_SHOWN | SDL_WINDOW_INPUT_FOCUS, &window, &renderer)) {
         std::cerr << "Failed to create window and renderer: " << SDL_GetError() << std::endl;
+        SDL_Quit();
         return -1;
     }
     SDL_SetWindowTitle(window, "Le petit prince game");
 
     auto background_texture = load_image(renderer, "assets/background.bmp");
+    auto menu_background_texture = load_image(renderer, "assets/menu_background.bmp");
+
+    Menu menu(renderer, menu_background_texture.get());
+    menu.show();
+    int chosen_level = menu.get_chosen_level();
+    const char *current_level;
+    switch (chosen_level) {
+        case 0: current_level = Map::level_easy; break;
+        case 1: current_level = Map::level_medium; break;
+        case 2: current_level = Map::level_hard; break;
+        default: current_level = Map::level_easy; break;
+    }
 
     bool still_playing = true;
     int x = 100;
@@ -53,7 +66,7 @@ int main(int argc, char *argv[])
     double game_time = 0.;
     std::chrono::steady_clock::time_point current_time = std::chrono::steady_clock::now();
     Time_Counter time_counter(renderer);
-    Map map(renderer, Map::level_hard);
+    Map map(renderer, current_level);
     Fox fox(renderer);
 
     while (still_playing) {
@@ -91,4 +104,3 @@ int main(int argc, char *argv[])
     SDL_Quit();
     return 0;
 }
-
