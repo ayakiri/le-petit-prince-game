@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(mygame)
+project(le-petit-prince-game)
 
 # Create an option to switch between a system sdl library and a vendored sdl library
 option(MYGAME_VENDORED "Use vendored libraries" ON)
@@ -15,21 +15,21 @@ else()
 endif()
 
 # Create your game executable target as usual
-add_executable(mygame WIN32 main.cpp)
+add_executable(le-petit-prince-game WIN32 main.cpp sprite.h time_counter.h)
 
 # SDL2::SDL2main may or may not be available. It is e.g. required by Windows GUI applications
 if(TARGET SDL2::SDL2main)
     # It has an implicit dependency on SDL2 functions, so it MUST be added before SDL2::SDL2 (or SDL2::SDL2-static)
-    target_link_libraries(mygame PRIVATE SDL2::SDL2main)
+    target_link_libraries(le-petit-prince-game PRIVATE SDL2::SDL2main)
 endif()
 
 if (WIN32)
     add_custom_command(
-            TARGET mygame POST_BUILD
-            COMMAND "${CMAKE_COMMAND}" -E copy_if_different "$<TARGET_FILE:SDL2::SDL2>" "$<TARGET_FILE_DIR:mygame>"
+            TARGET le-petit-prince-game POST_BUILD
+            COMMAND "${CMAKE_COMMAND}" -E copy_if_different "$<TARGET_FILE:SDL2::SDL2>" "$<TARGET_FILE_DIR:le-petit-prince-game>"
             VERBATIM
     )
 endif()
 
 # Link to the actual SDL2 library. SDL2::SDL2 is the shared SDL library, SDL2::SDL2-static is the static SDL libarary.
-target_link_libraries(mygame PRIVATE SDL2::SDL2)
+target_link_libraries(le-petit-prince-game PRIVATE SDL2::SDL2)
