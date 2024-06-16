@@ -15,8 +15,8 @@ else()
 endif()
 
 # Create your game executable target as usual
-add_executable(le-petit-prince-game WIN32 main.cpp sprite.h time_counter.h
-        map.h)
+add_executable(le-petit-prince-game WIN32 main.cpp  time_counter.h sprite.h
+        map.h fox.h)
 
 # SDL2::SDL2main may or may not be available. It is e.g. required by Windows GUI applications
 if(TARGET SDL2::SDL2main)

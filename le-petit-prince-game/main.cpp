@@ -5,6 +5,7 @@
 #include <thread>
 #include "time_counter.h"
 #include "map.h"
+#include "fox.h"
 
 std::shared_ptr<SDL_Texture> load_image(SDL_Renderer *renderer, const std::string &file_path) {
     SDL_Surface *surface;
@@ -54,6 +55,7 @@ int main(int argc, char *argv[])
     std::chrono::steady_clock::time_point current_time = std::chrono::steady_clock::now();
     Time_Counter time_counter(renderer);
     Map map(renderer);
+    Fox fox(renderer);
 
     while (still_playing) {
         SDL_Event event;
@@ -73,6 +75,7 @@ int main(int argc, char *argv[])
         SDL_RenderClear(renderer); // re-draw the window
         SDL_RenderCopy(renderer, background_texture.get(), NULL, NULL);
         time_counter.draw();
+        fox.draw();
         map.draw();
         SDL_RenderPresent(renderer);
 
