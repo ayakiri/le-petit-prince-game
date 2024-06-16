@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
     double game_time = 0.;
     std::chrono::steady_clock::time_point current_time = std::chrono::steady_clock::now();
     Time_Counter time_counter(renderer);
-    Map map(renderer);
+    Map map(renderer, Map::level_hard);
     Fox fox(renderer);
 
     while (still_playing) {
