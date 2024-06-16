@@ -5,7 +5,7 @@
 struct Map {
     Map(SDL_Renderer *renderer) :
             renderer(renderer),
-            sprite(renderer, "ground.bmp", 128) {
+            sprite(renderer, "assets/ground.bmp", 128) {
         assert(sizeof(level) == w*h+1); // +1 for the null terminated string
         int window_w, window_h;
         if (SDL_GetRendererOutputSize(renderer, &window_w, &window_h)) {

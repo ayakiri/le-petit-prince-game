@@ -4,7 +4,7 @@
 #include "sprite.h"
 
 struct Time_Counter {
-    Time_Counter(SDL_Renderer *renderer) : renderer(renderer), numbers(renderer, "nums.bmp", 24) {}
+    Time_Counter(SDL_Renderer *renderer) : renderer(renderer), numbers(renderer, "assets/nums.bmp", 24) {}
 
     void draw() {
         double dt = std::chrono::duration<double>(Clock::now() - timestamp).count();

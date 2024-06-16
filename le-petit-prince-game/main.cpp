@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
         std::cerr << "Failed to create window and renderer: " << SDL_GetError() << std::endl;
         return -1;
     }
-    SDL_SetWindowTitle(window, "Eclipse game");
+    SDL_SetWindowTitle(window, "Le petit prince game");
 
     auto background_texture = load_image(renderer, "assets/background.bmp");
 

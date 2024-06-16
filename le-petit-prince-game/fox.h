@@ -6,13 +6,14 @@
 
 struct Fox {
     enum States {
-        REST=0, JUMP=2
+        REST=0, JUMP=2, RUN=3
     };
 
     Fox(SDL_Renderer *renderer) :
             renderer(renderer),
             sprites{Animation(renderer, "assets/fox_idle.bmp",    128, 1.0, true ),
-                    Animation(renderer, "assets/fox_jump.bmp",  128, 1.3, false )} {
+                    Animation(renderer, "assets/fox_jump.bmp",  128, 1.3, false ),
+                    Animation(renderer, "assets/fox_run.bmp",  128, 1.0, true )} {
     }
 
     void draw() {
@@ -31,6 +32,6 @@ struct Fox {
     const int sprite_h = 128;
 
     SDL_Renderer *renderer;   // draw here
-    std::array<Animation,2> sprites; // sprite sequences to be drawn
+    std::array<Animation,3> sprites; // sprite sequences to be drawn
 };
 #endif //LE_PETIT_PRINCE_GAME_FOX_H
