@@ -6,7 +6,7 @@
 
 struct Fox {
     enum States {
-        REST=0, JUMP=2, RUN=3
+        REST=0, JUMP=1, RUN=2
     };
 
     Fox(SDL_Renderer *renderer) :
@@ -16,6 +16,38 @@ struct Fox {
                     Animation(renderer, "assets/fox_run.bmp",  128, 1.0, true )} {
     }
 
+    void set_state(int s) {
+        timestamp = Clock::now();
+        state = s;
+        if (state==REST)
+            vx = 0;
+        if (state==RUN)
+            vx = backwards ? -150 : 150;
+    }
+
+    void handle_keyboard() {
+        const Uint8 *kbstate = SDL_GetKeyboardState(NULL);
+        if (state==RUN && !kbstate[SDL_SCANCODE_RIGHT] && !kbstate[SDL_SCANCODE_LEFT])
+            set_state(REST);
+        if (state==REST && (kbstate[SDL_SCANCODE_LEFT] || kbstate[SDL_SCANCODE_RIGHT])) {
+            backwards = kbstate[SDL_SCANCODE_LEFT];
+            set_state(RUN);
+        }
+    }
+
+    void update_state(const double dt, const Map &map) {
+        double cand_x = x + dt*vx; // candidate coordinates prior to collision detection
+
+        if (!map.is_empty(cand_x/map.tile_w, y/map.tile_h)) { // horizontal collision detection
+            int snap = std::round(cand_x/map.tile_w)*map.tile_w; // snap the coorinate to the boundary of last free tile
+            cand_x = snap + (snap>cand_x ? 1 : -1);
+            vx = 0; // stop
+        }
+
+        x = cand_x; // final coordinates post-collision detection
+    }
+
+
     void draw() {
         SDL_Rect src = sprites[state].rect(timestamp);
         SDL_Rect dest = { int(x)-sprite_w, int(y)-sprite_h, sprite_w, sprite_h };
@@ -23,6 +55,7 @@ struct Fox {
     }
 
     double x = 150, y = 200; // coordinates of the player
+    double vx = 150, vy = 200; //speed
     bool backwards = false;  // left or right
 
     int state = REST;

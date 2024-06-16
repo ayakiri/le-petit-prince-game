@@ -68,8 +68,11 @@ int main(int argc, char *argv[])
                     break;
             }
         }
+        fox.handle_keyboard();
 
         game_time += dt;
+
+        fox.update_state(dt, map);
 
         SDL_RenderClear(renderer); // re-draw the window
         SDL_RenderCopy(renderer, background_texture.get(), NULL, NULL);
