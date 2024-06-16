@@ -16,7 +16,6 @@ std::shared_ptr<SDL_Texture> load_image(SDL_Renderer *renderer, const std::strin
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create surface from image: %s", SDL_GetError());
         throw std::invalid_argument(SDL_GetError());
     }
-    SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format,0, 255, 255));
     texture = SDL_CreateTextureFromSurface(renderer, surface);
     if (!texture) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create texture from surface: %s", SDL_GetError());
@@ -75,8 +74,9 @@ int main(int argc, char *argv[])
         SDL_RenderClear(renderer); // re-draw the window
         SDL_RenderCopy(renderer, background_texture.get(), NULL, NULL);
         time_counter.draw();
-        fox.draw();
         map.draw();
+        fox.draw();
+
         SDL_RenderPresent(renderer);
 
         current_time = current_time + std::chrono::microseconds((long long int)(dt*1000000.0));

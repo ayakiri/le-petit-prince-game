@@ -3,10 +3,6 @@
 
 #include "sprite.h"
 
-
-using Clock = std::chrono::high_resolution_clock;
-using TimeStamp = std::chrono::time_point<Clock>;
-
 struct Time_Counter {
     Time_Counter(SDL_Renderer *renderer) : renderer(renderer), numbers(renderer, "nums.bmp", 24) {}
 
