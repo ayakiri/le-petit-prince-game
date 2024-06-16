@@ -48,16 +48,34 @@ int main(int argc, char *argv[])
 
     auto background_texture = load_image(renderer, "assets/background.bmp");
     auto menu_background_texture = load_image(renderer, "assets/menu_background.bmp");
+    auto easy_texture = load_image(renderer, "assets/button_easy.bmp");
+    auto easy_active_texture = load_image(renderer, "assets/button_easy_active.bmp");
+    auto medium_texture = load_image(renderer, "assets/button_medium.bmp");
+    auto medium_active_texture = load_image(renderer, "assets/button_medium_active.bmp");
+    auto hard_texture = load_image(renderer, "assets/button_hard.bmp");
+    auto hard_active_texture = load_image(renderer, "assets/button_hard_active.bmp");
 
-    Menu menu(renderer, menu_background_texture.get());
+    // Instantiate Menu with loaded textures
+    Menu menu(renderer, menu_background_texture.get(),
+              easy_texture.get(), easy_active_texture.get(),
+              medium_texture.get(), medium_active_texture.get(),
+              hard_texture.get(), hard_active_texture.get());
     menu.show();
     int chosen_level = menu.get_chosen_level();
     const char *current_level;
     switch (chosen_level) {
-        case 0: current_level = Map::level_easy; break;
-        case 1: current_level = Map::level_medium; break;
-        case 2: current_level = Map::level_hard; break;
-        default: current_level = Map::level_easy; break;
+    case 0:
+        current_level = Map::level_easy;
+        break;
+    case 1:
+        current_level = Map::level_medium;
+        break;
+    case 2:
+        current_level = Map::level_hard;
+        break;
+    default:
+        current_level = Map::level_easy;
+        break;
     }
 
     bool still_playing = true;
