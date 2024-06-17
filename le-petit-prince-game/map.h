@@ -39,7 +39,7 @@ struct Map {
 
     SDL_Renderer *renderer;   // draw here
     Sprite sprite;            // textures to be drawn
-    int tile_w=-1, tile_h=-1; // tile size in the renderer window
+    int tile_w=0, tile_h=0; // tile size in the renderer window
 
     static constexpr int w = 16; // overall map dimensions
     static constexpr int h = 12;

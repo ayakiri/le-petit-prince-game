@@ -1,18 +1,18 @@
-#ifndef LE_PETIT_PRINCE_GAME_FOX_H
-#define LE_PETIT_PRINCE_GAME_FOX_H
+#ifndef LE_PETIT_PRINCE_GAME_PRINCE_H
+#define LE_PETIT_PRINCE_GAME_PRINCE_H
 #include <array>
 #include <cmath>
 #include "map.h"
 
-struct Fox {
-    enum States { REST=0, JUMP=1, RUN=2, FALL=3 };
+struct Prince{
+        enum States { REST=0, JUMP=1, RUN=2, FALL=3 };
 
-    Fox(SDL_Renderer *renderer) :
-            renderer(renderer),
-            sprites{Animation(renderer, "assets/fox_idle.bmp",    128, 1.0, true ),
-                    Animation(renderer, "assets/fox_jump.bmp",  128, 1.3, false ),
-                    Animation(renderer, "assets/fox_run.bmp",  128, 1.0, true ),
-                    Animation(renderer, "assets/fox_fall.bmp",  128, 1.0, true )} {
+    Prince(SDL_Renderer *renderer) :
+    renderer(renderer),
+    sprites{Animation(renderer, "assets/prince_idle.bmp",    128, 1.0, true ),
+            Animation(renderer, "assets/prince_jump.bmp",  128, 1.3, false ),
+            Animation(renderer, "assets/prince_run.bmp",  128, 1.0, true ),
+            Animation(renderer, "assets/prince_fall.bmp",  128, 1.0, true )} {
     }
 
     void set_state(int s) {
@@ -30,10 +30,10 @@ struct Fox {
 
     void handle_keyboard(const double dt, const Map &map) {
         const Uint8 *kbstate = SDL_GetKeyboardState(NULL);
-        if (state==RUN && !kbstate[SDL_SCANCODE_RIGHT] && !kbstate[SDL_SCANCODE_LEFT])
+        if (state==RUN && !kbstate[SDL_SCANCODE_D] && !kbstate[SDL_SCANCODE_A])
             set_state(REST);
-        if ((state==REST || state==RUN) && kbstate[SDL_SCANCODE_UP]) {
-            if (kbstate[SDL_SCANCODE_LEFT] || kbstate[SDL_SCANCODE_RIGHT]) {
+        if ((state==REST || state==RUN) && kbstate[SDL_SCANCODE_W]) {
+            if (kbstate[SDL_SCANCODE_A] || kbstate[SDL_SCANCODE_D]) {
                 jumpvx =  200; // long jump
                 jumpvy = -200;
             } else {
@@ -42,10 +42,11 @@ struct Fox {
             }
             set_state(JUMP);
         }
-        if (state==REST && (kbstate[SDL_SCANCODE_LEFT] || kbstate[SDL_SCANCODE_RIGHT])) {
-            backwards = kbstate[SDL_SCANCODE_LEFT];
+        if (state==REST && (kbstate[SDL_SCANCODE_A] || kbstate[SDL_SCANCODE_D])) {
+            backwards = kbstate[SDL_SCANCODE_A];
             set_state(RUN);
         }
+
         if (state==JUMP && sprites[state].animation_ended(timestamp))
             set_state(REST);
         if (state!=JUMP && map.is_empty(x/map.tile_w, y/map.tile_h + 1))
@@ -69,24 +70,23 @@ struct Fox {
         }
     }
 
-
     void draw() {
         SDL_Rect src = sprites[state].rect(timestamp);
         SDL_Rect dest = { int(x)-sprite_w, int(y)-sprite_h, sprite_w, sprite_h };
         SDL_RenderCopyEx(renderer, sprites[state].texture, &src, &dest, 0, nullptr, backwards ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
     }
 
-    double x = 750, y = 200; // coordinates of the character
+    double x = 200, y = 200; // coordinates of the character
     double vx = 0, vy = 0;   // speed
-    bool backwards = true;  // facing left or right
+    bool backwards = false;  // facing left or right
     double jumpvx = 0, jumpvy = 0; // will be used to differentiate high jump from a long jump
 
     int state = REST;         // current sprite
     TimeStamp timestamp = Clock::now();
     SDL_Renderer *renderer;
 
-    const int sprite_w = 96; // size of the sprite on the screen
-    const int sprite_h = 96;
+    const int sprite_w = 128; // size of the sprite on the screen
+    const int sprite_h = 128;
     const std::array<Animation,4> sprites; // sprite sequences to be drawn
 };
-#endif //LE_PETIT_PRINCE_GAME_FOX_H
+#endif //LE_PETIT_PRINCE_GAME_PRINCE_H
