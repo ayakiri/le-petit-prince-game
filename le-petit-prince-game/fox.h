@@ -79,9 +79,9 @@ struct Fox {
         SDL_RenderCopyEx(renderer, sprites[state].texture, &src, &dest, 0, nullptr, backwards ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
     }
 
-    double x = 150, y = 200; // coordinates of the character
+    double x = 750, y = 200; // coordinates of the character
     double vx = 0, vy = 0;   // speed
-    bool backwards = false;  // facing left or right
+    bool backwards = true;  // facing left or right
     double jumpvx = 0, jumpvy = 0; // will be used to differentiate high jump from a long jump
 
     int state = REST;         // current sprite
