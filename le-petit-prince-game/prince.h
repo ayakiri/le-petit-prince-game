@@ -28,7 +28,7 @@ struct Prince{
         }
     }
 
-    void handle_keyboard() {
+    void handle_keyboard(const double dt, const Map &map) {
         const Uint8 *kbstate = SDL_GetKeyboardState(NULL);
         if (state==RUN && !kbstate[SDL_SCANCODE_D] && !kbstate[SDL_SCANCODE_A])
             set_state(REST);
@@ -46,9 +46,7 @@ struct Prince{
             backwards = kbstate[SDL_SCANCODE_A];
             set_state(RUN);
         }
-    }
 
-    void update_state(const double dt, const Map &map) {
         if (state==JUMP && sprites[state].animation_ended(timestamp))
             set_state(REST);
         if (state!=JUMP && map.is_empty(x/map.tile_w, y/map.tile_h + 1))
@@ -71,7 +69,6 @@ struct Prince{
                 set_state(REST);
         }
     }
-
 
     void draw() {
         SDL_Rect src = sprites[state].rect(timestamp);

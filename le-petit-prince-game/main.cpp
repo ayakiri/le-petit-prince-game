@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
 
     bool still_playing = true;
     double game_time = 0.;
-    std::chrono::steady_clock::time_point current_time = std::chrono::steady_clock::now();
+    auto current_time = std::chrono::steady_clock::now();
     Time_Counter time_counter(renderer);
     Map map(renderer, current_level);
     Fox fox(renderer);
@@ -100,13 +100,11 @@ int main(int argc, char *argv[])
                     break;
             }
         }
-        fox.handle_keyboard();
-        prince.handle_keyboard();
+        fox.handle_keyboard(dt, map);
+        prince.handle_keyboard(dt, map);
 
         game_time += dt;
 
-        fox.update_state(dt, map);
-        prince.update_state(dt, map);
 
         SDL_RenderClear(renderer); // re-draw the window
         SDL_RenderCopy(renderer, background_texture.get(), NULL, NULL);
