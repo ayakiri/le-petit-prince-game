@@ -82,6 +82,7 @@ struct Prince{
     bool backwards = false;  // facing left or right
     double jumpvx = 0, jumpvy = 0; // will be used to differentiate high jump from a long jump
 
+
     int state = REST;         // current sprite
     TimeStamp timestamp = Clock::now();
     SDL_Renderer *renderer;
