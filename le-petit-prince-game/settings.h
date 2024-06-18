@@ -39,7 +39,7 @@ public:
             SDL_RenderCopy(renderer, background_texture, nullptr, nullptr);
 
             // bakc button
-            SDL_Rect dest_rect = {170, 380, 350, 120};
+            SDL_Rect dest_rect = {530, 475, 350, 120};
             SDL_RenderCopy(renderer, selected == 0 ? back_button_active_texture : back_button_texture, nullptr, &dest_rect);
 
             SDL_RenderPresent(renderer);
