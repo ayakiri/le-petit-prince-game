@@ -44,43 +44,43 @@ struct Map {
     static constexpr int w = 16; // overall map dimensions
     static constexpr int h = 12;
 
-    static constexpr char level_easy[w*h+1] =    "                "\
-                                                 "               6"\
-                                                 " 0111111112    5"\
-                                                 "               5"\
-                                                 "               5"\
-                                                 "     01111112  5"\
-                                                 "               5"\
+    static constexpr char level_easy[w*h+1] =    "               6"\
                                                  "7              5"\
+                                                 "4 011111112    5"\
+                                                 "4              5"\
+                                                 "4              5"\
+                                                 "4    01111112  5"\
+                                                 "4              5"\
+                                                 "4              5"\
                                                  "4  011112      5"\
                                                  "4              5"\
                                                  "4              5"\
                                                  "9333333333333338";
 
-    static constexpr char level_medium[w*h+1] =  "                "\
-                                                 "               6"\
-                                                 "               5"\
-                                                 "               5"\
-                                                 "               5"\
-                                                 "               5"\
-                                                 "               5"\
+    static constexpr char level_medium[w*h+1] =  "               6"\
                                                  "7              5"\
-                                                 "4  0112        5"\
-                                                 "4          012 5"\
+                                                 "4              5"\
+                                                 "4 0112         5"\
+                                                 "4              5"\
+                                                 "4              5"\
+                                                 "40112  0112    5"\
+                                                 "4            025"\
+                                                 "4  0112  02    5"\
+                                                 "4      02  01125"\
                                                  "4              5"\
                                                  "9333333333333338";
 
-    static constexpr char level_hard[w*h+1] =    "                "\
-                                                 "               6"\
-                                                 " 011112    02  5"\
-                                                 "               5"\
-                                                 "               5"\
-                                                 "111112   01112 5"\
-                                                 "               5"\
+    static constexpr char level_hard[w*h+1] =    "               6"\
                                                  "7              5"\
-                                                 "4  0112        5"\
-                                                 "4          012 5"\
+                                                 "4   02   02    5"\
+                                                 "4012  012      5"\
                                                  "4              5"\
+                                                 "4              5"\
+                                                 "4  011112      5"\
+                                                 "4        02    5"\
+                                                 "4          01125"\
+                                                 "4     02       5"\
+                                                 "4  012         5"\
                                                  "9333333333333338";
 
     const char* current_level;
