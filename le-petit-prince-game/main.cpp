@@ -10,7 +10,8 @@
 #include "menu.h"
 #include "rose.h"
 #include "win_screen.h"
-
+int rose_x = 5;
+int rose_y = 7;
 std::shared_ptr<SDL_Texture> load_image(SDL_Renderer *renderer, const std::string &file_path) {
     SDL_Surface *surface;
     SDL_Texture *texture;
@@ -31,6 +32,23 @@ std::shared_ptr<SDL_Texture> load_image(SDL_Renderer *renderer, const std::strin
         SDL_DestroyTexture(t);
     }};
 }
+
+bool find_rose(const Prince& prince, const Fox& fox, const Rose& rose, SDL_Renderer *renderer)  {
+    int window_w, window_h;
+    SDL_GetRendererOutputSize(renderer, &window_w, &window_h);
+    auto tile_w = window_w/16;
+    auto tile_h = window_h/12;
+    auto fox_x = int(fox.x/tile_w);
+    auto fox_y = int(fox.y/tile_h);
+    auto prince_x = int(prince.x/tile_w);
+    auto prince_y = int(prince.y/tile_h);
+    if(fox_x == rose_x && fox_y == rose_y && prince_x == rose_x && prince_y == rose_y){
+        return true;
+    }
+    return false;
+}
+
+
 
 int main(int argc, char *argv[])
 {
@@ -109,7 +127,7 @@ int main(int argc, char *argv[])
 
         game_time += dt;
 
-        if (fox.collides_with(rose)) {
+        if (find_rose(prince, fox,rose, renderer)) {
             show_win_screen(renderer, win_background_texture.get());
             break;
         }
