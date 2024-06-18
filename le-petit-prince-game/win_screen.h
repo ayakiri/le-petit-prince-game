@@ -16,11 +16,9 @@ void show_win_screen(SDL_Renderer* renderer, SDL_Texture* win_background) {
                 case SDL_QUIT:
                     return;
                 case SDL_KEYDOWN:
-                    if (event.key.keysym.scancode == SDL_SCANCODE_RETURN) {
-                        return; // End win screen on Enter key press
-                    }
+                    if (event.key.keysym.scancode == SDL_SCANCODE_SPACE) return;
+                    if (event.key.keysym.scancode == SDL_SCANCODE_Q) return;
                 break;
-                // dodać powrót do menu?
             }
         }
 
