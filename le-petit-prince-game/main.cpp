@@ -89,23 +89,23 @@ int main(int argc, char *argv[])
     switch (chosen_level) {
     case 0:
         current_level = Map::level_easy;
-        rose_x = 5;
-        rose_y = 7;
+        rose_x = 7;
+        rose_y = 10;
         break;
     case 1:
         current_level = Map::level_medium;
-        rose_x = 2;
-        rose_y = 2;
+        rose_x = 9;
+        rose_y = 10;
         break;
     case 2:
         current_level = Map::level_hard;
-        rose_x = 10;
-        rose_y = 3;
+        rose_x = 9;
+        rose_y = 10;
         break;
     default:
         current_level = Map::level_easy;
-        rose_x = 5;
-        rose_y = 7;
+        rose_x = 7;
+        rose_y = 10;
         break;
     }
 
