@@ -107,7 +107,7 @@ int game_run(SDL_Renderer *renderer, SDL_Window *window) {
     Map map(renderer, current_level);
     Fox fox(renderer);
     Prince prince(renderer);
-    Rose rose(renderer, "assets/rose.bmp", rose_x, rose_y);
+    Rose rose(renderer, "assets/rose1.bmp", rose_x, rose_y);
 
     while (still_playing) {
         SDL_Event event;
