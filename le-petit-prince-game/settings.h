@@ -17,7 +17,6 @@ public:
 
     void show() {
         bool in_settings = true;
-        int selected = 0;
 
         while (in_settings) {
             SDL_Event event;
@@ -31,6 +30,7 @@ public:
                         if (event.key.keysym.scancode == SDL_SCANCODE_RETURN) {
                             in_settings = false;
                         }
+                        if (event.key.keysym.scancode == SDL_SCANCODE_Q) exit(0);
                     break;
                 }
             }
@@ -40,7 +40,7 @@ public:
 
             // bakc button
             SDL_Rect dest_rect = {530, 475, 350, 120};
-            SDL_RenderCopy(renderer, selected == 0 ? back_button_active_texture : back_button_texture, nullptr, &dest_rect);
+            SDL_RenderCopy(renderer, back_button_active_texture, nullptr, &dest_rect);
 
             SDL_RenderPresent(renderer);
         }

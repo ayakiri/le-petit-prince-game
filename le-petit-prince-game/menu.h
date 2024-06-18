@@ -47,6 +47,7 @@ public:
                         exit(0);
                         break;
                     case SDL_KEYUP:
+                        if (event.key.keysym.scancode == SDL_SCANCODE_Q) exit(0);
                         if (event.key.keysym.scancode == SDL_SCANCODE_UP) {
                             selected = (selected + 3) % 4;
                         } else if (event.key.keysym.scancode == SDL_SCANCODE_DOWN) {
