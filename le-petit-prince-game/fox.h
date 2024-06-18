@@ -60,7 +60,7 @@ struct Fox {
         }
 
         y  += dt*vy;  // prior to collision detection
-        vy += dt*300; // gravity
+        vy += dt*gravity;
         if (!map.is_empty(x/map.tile_w, y/map.tile_h)) { // vertical collision detection
             int snap = std::round(y/map.tile_h)*map.tile_h;   // snap the coorinate to the boundary of last free tile
             y = snap + (snap>y ? 1 : -1);
@@ -81,6 +81,7 @@ struct Fox {
     double vx = 0, vy = 0;   // speed
     bool backwards = true;  // facing left or right
     double jumpvx = 0, jumpvy = 0; // will be used to differentiate high jump from a long jump
+    double gravity =300;
 
     int state = REST;         // current sprite
     TimeStamp timestamp = Clock::now();

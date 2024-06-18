@@ -168,6 +168,8 @@ int main(int argc, char *argv[])
         SDL_Quit();
         return -1;
     }
+    auto icon = SDL_LoadBMP("assets/icon.bmp");
+    SDL_SetWindowIcon(window, icon);
     SDL_SetWindowTitle(window, "Le petit prince game");
 
     int play = 1;
