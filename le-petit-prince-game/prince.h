@@ -60,7 +60,7 @@ struct Prince{
         }
 
         y  += dt*vy;  // prior to collision detection
-        vy += dt*300; // gravity
+        vy += dt*gravity;
         if (!map.is_empty(x/map.tile_w, y/map.tile_h)) { // vertical collision detection
             int snap = std::round(y/map.tile_h)*map.tile_h;   // snap the coorinate to the boundary of last free tile
             y = snap + (snap>y ? 1 : -1);
@@ -78,6 +78,7 @@ struct Prince{
 
     double x = 200, y = 100; // coordinates of the character
     double vx = 0, vy = 0;   // speed
+    double gravity =300;
     bool backwards = false;  // facing left or right
     double jumpvx = 0, jumpvy = 0; // will be used to differentiate high jump from a long jump
 

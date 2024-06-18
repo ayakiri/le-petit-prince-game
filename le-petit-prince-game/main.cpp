@@ -8,6 +8,7 @@
 #include "fox.h"
 #include "prince.h"
 #include "menu.h"
+#include "rose.h"
 
 
 std::shared_ptr<SDL_Texture> load_image(SDL_Renderer *renderer, const std::string &file_path) {
@@ -87,6 +88,7 @@ int main(int argc, char *argv[])
     Map map(renderer, current_level);
     Fox fox(renderer);
     Prince prince(renderer);
+    Rose rose(renderer, "assets/rose.bmp", 5, 7);
 
     while (still_playing) {
         SDL_Event event;
@@ -110,8 +112,10 @@ int main(int argc, char *argv[])
         SDL_RenderCopy(renderer, background_texture.get(), NULL, NULL);
         time_counter.draw();
         map.draw();
+        rose.draw();
         fox.draw();
         prince.draw();
+
 
         SDL_RenderPresent(renderer);
 
