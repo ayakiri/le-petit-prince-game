@@ -70,11 +70,6 @@ struct Fox {
         }
     }
 
-    // zwykła kolizja - do poprawy
-    bool collides_with(const Rose& rose) const {
-        return !(x + sprite_w / 2 < rose.x || x - sprite_w / 2 > rose.x + rose.width ||
-                 y < rose.y || y - sprite_h > rose.y + rose.height);
-    }
 
     void draw() {
         SDL_Rect src = sprites[state].rect(timestamp);
