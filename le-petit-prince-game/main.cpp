@@ -58,15 +58,21 @@ int game_run(SDL_Renderer *renderer, SDL_Window *window) {
     auto medium_active_texture = load_image(renderer, "assets/button_medium_active.bmp");
     auto hard_texture = load_image(renderer, "assets/button_hard.bmp");
     auto hard_active_texture = load_image(renderer, "assets/button_hard_active.bmp");
+    auto settings_texture = load_image(renderer, "assets/button_settings.bmp");
+    auto settings_active_texture = load_image(renderer, "assets/button_settings_active.bmp");
+    auto settings_background_texture = load_image(renderer, "assets/help_background.bmp");
+    auto back_button_texture = load_image(renderer, "assets/button_back.bmp");
+    auto back_button_active_texture = load_image(renderer, "assets/button_back_active.bmp");
     auto win_background_texture = load_image(renderer, "assets/win_background.bmp");
 
     double dt = 1. / 60.;
 
-    // Instantiate Menu with loaded textures
     Menu menu(renderer, menu_background_texture.get(),
               easy_texture.get(), easy_active_texture.get(),
               medium_texture.get(), medium_active_texture.get(),
-              hard_texture.get(), hard_active_texture.get());
+              hard_texture.get(), hard_active_texture.get(),
+              settings_texture.get(), settings_active_texture.get(),
+              settings_background_texture.get(), back_button_texture.get(), back_button_active_texture.get());
     menu.show();
     int chosen_level = menu.get_chosen_level();
     const char *current_level;
@@ -120,7 +126,7 @@ int game_run(SDL_Renderer *renderer, SDL_Window *window) {
 
         game_time += dt;
 
-        if (find_rose(prince, fox,rose, renderer, rose_x, rose_y)) {
+        if (find_rose(prince, fox, rose, renderer, rose_x, rose_y)) {
             int rerun = show_win_screen(renderer, win_background_texture.get());
             return rerun;
         }
@@ -133,7 +139,6 @@ int game_run(SDL_Renderer *renderer, SDL_Window *window) {
         fox.draw();
         prince.draw();
 
-
         SDL_RenderPresent(renderer);
 
         current_time = current_time + std::chrono::microseconds((long long int)(dt*1000000.0));
@@ -145,6 +150,7 @@ int game_run(SDL_Renderer *renderer, SDL_Window *window) {
     SDL_Quit();
     return 0;
 }
+
 
 
 int main(int argc, char *argv[])
