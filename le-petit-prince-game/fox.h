@@ -72,7 +72,7 @@ struct Fox {
 
     void draw() {
         SDL_Rect src = sprites[state].rect(timestamp);
-        SDL_Rect dest = { int(x)-sprite_w, int(y)-sprite_h, sprite_w, sprite_h };
+        SDL_Rect dest = { int(x)-sprite_w/2, int(y)-sprite_h, sprite_w, sprite_h };
         SDL_RenderCopyEx(renderer, sprites[state].texture, &src, &dest, 0, nullptr, backwards ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
     }
 

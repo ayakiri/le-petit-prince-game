@@ -72,11 +72,11 @@ struct Prince{
 
     void draw() {
         SDL_Rect src = sprites[state].rect(timestamp);
-        SDL_Rect dest = { int(x)-sprite_w, int(y)-sprite_h, sprite_w, sprite_h };
+        SDL_Rect dest = { int(x)-sprite_w/2, int(y)-sprite_h, sprite_w, sprite_h };
         SDL_RenderCopyEx(renderer, sprites[state].texture, &src, &dest, 0, nullptr, backwards ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
     }
 
-    double x = 200, y = 200; // coordinates of the character
+    double x = 200, y = 100; // coordinates of the character
     double vx = 0, vy = 0;   // speed
     bool backwards = false;  // facing left or right
     double jumpvx = 0, jumpvy = 0; // will be used to differentiate high jump from a long jump
