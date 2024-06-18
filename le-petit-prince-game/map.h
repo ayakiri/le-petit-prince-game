@@ -37,7 +37,7 @@ struct Map {
         return current_level[i+j*w] == ' ';
     }
 
-    SDL_Renderer *renderer;   // draw here
+    SDL_Renderer *renderer;   // update here
     Sprite sprite;            // textures to be drawn
     int tile_w=0, tile_h=0; // tile size in the renderer window
 

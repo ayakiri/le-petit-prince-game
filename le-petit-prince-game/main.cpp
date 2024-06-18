@@ -127,17 +127,18 @@ int game_run(SDL_Renderer *renderer, SDL_Window *window) {
         game_time += dt;
 
         if (find_rose(prince, fox, rose, renderer, rose_x, rose_y)) {
-            int rerun = show_win_screen(renderer, win_background_texture.get());
+            int rerun = show_win_screen(renderer, win_background_texture.get(), time_counter);
             return rerun;
         }
 
-        SDL_RenderClear(renderer); // re-draw the window
+        SDL_RenderClear(renderer); // re-update the window
         SDL_RenderCopy(renderer, background_texture.get(), NULL, NULL);
-        time_counter.draw();
+        time_counter.update();
         map.draw();
         rose.draw();
         fox.draw();
         prince.draw();
+        time_counter.render(0, 0);
 
         SDL_RenderPresent(renderer);
 
