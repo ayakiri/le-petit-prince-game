@@ -7,17 +7,17 @@
 
 std::shared_ptr<SDL_Texture> load_image(SDL_Renderer *renderer, const std::string &file_path);
 
-void show_win_screen(SDL_Renderer* renderer, SDL_Texture* win_background) {
+int show_win_screen(SDL_Renderer* renderer, SDL_Texture* win_background) {
     SDL_Event event;
 
     while (true) {
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
                 case SDL_QUIT:
-                    return;
+                    return 0;
                 case SDL_KEYDOWN:
-                    if (event.key.keysym.scancode == SDL_SCANCODE_SPACE) return;
-                    if (event.key.keysym.scancode == SDL_SCANCODE_Q) return;
+                    if (event.key.keysym.scancode == SDL_SCANCODE_SPACE) return 1;
+                    if (event.key.keysym.scancode == SDL_SCANCODE_Q) return 0;
                 break;
             }
         }
