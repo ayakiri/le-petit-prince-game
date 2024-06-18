@@ -19,6 +19,7 @@ std::shared_ptr<SDL_Texture> load_image(SDL_Renderer *renderer, const std::strin
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create surface from image: %s", SDL_GetError());
         throw std::invalid_argument(SDL_GetError());
     }
+    SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format,234, 63, 247));
     texture = SDL_CreateTextureFromSurface(renderer, surface);
     if (!texture) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create texture from surface: %s", SDL_GetError());
