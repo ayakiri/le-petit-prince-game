@@ -9,7 +9,7 @@
 #include "prince.h"
 #include "menu.h"
 #include "rose.h"
-
+#include "win_screen.h"
 
 std::shared_ptr<SDL_Texture> load_image(SDL_Renderer *renderer, const std::string &file_path) {
     SDL_Surface *surface;
@@ -38,9 +38,9 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    SDL_Window   *window   = nullptr;
+    SDL_Window *window = nullptr;
     SDL_Renderer *renderer = nullptr;
-    double dt = 1./60.;
+    double dt = 1. / 60.;
 
     if (SDL_CreateWindowAndRenderer(1024, 768, SDL_WINDOW_SHOWN | SDL_WINDOW_INPUT_FOCUS, &window, &renderer)) {
         std::cerr << "Failed to create window and renderer: " << SDL_GetError() << std::endl;
@@ -57,6 +57,7 @@ int main(int argc, char *argv[])
     auto medium_active_texture = load_image(renderer, "assets/button_medium_active.bmp");
     auto hard_texture = load_image(renderer, "assets/button_hard.bmp");
     auto hard_active_texture = load_image(renderer, "assets/button_hard_active.bmp");
+    auto win_background_texture = load_image(renderer, "assets/win_background.bmp");
 
     // Instantiate Menu with loaded textures
     Menu menu(renderer, menu_background_texture.get(),
@@ -107,6 +108,10 @@ int main(int argc, char *argv[])
 
         game_time += dt;
 
+        if (fox.collides_with(rose)) {
+            show_win_screen(renderer, win_background_texture.get());
+            break;
+        }
 
         SDL_RenderClear(renderer); // re-draw the window
         SDL_RenderCopy(renderer, background_texture.get(), NULL, NULL);

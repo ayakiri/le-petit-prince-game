@@ -3,6 +3,7 @@
 #include <array>
 #include <cmath>
 #include "map.h"
+#include "rose.h"
 
 struct Fox {
     enum States { REST=0, JUMP=1, RUN=2, FALL=3 };
@@ -69,6 +70,11 @@ struct Fox {
         }
     }
 
+    // zwykła kolizja - do poprawy
+    bool collides_with(const Rose& rose) const {
+        return !(x + sprite_w / 2 < rose.x || x - sprite_w / 2 > rose.x + rose.width ||
+                 y < rose.y || y - sprite_h > rose.y + rose.height);
+    }
 
     void draw() {
         SDL_Rect src = sprites[state].rect(timestamp);
