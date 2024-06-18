@@ -10,8 +10,6 @@
 #include "menu.h"
 #include "rose.h"
 #include "win_screen.h"
-int rose_x = 5;
-int rose_y = 7;
 std::shared_ptr<SDL_Texture> load_image(SDL_Renderer *renderer, const std::string &file_path) {
     SDL_Surface *surface;
     SDL_Texture *texture;
@@ -33,7 +31,8 @@ std::shared_ptr<SDL_Texture> load_image(SDL_Renderer *renderer, const std::strin
     }};
 }
 
-bool find_rose(const Prince& prince, const Fox& fox, const Rose& rose, SDL_Renderer *renderer)  {
+bool find_rose(const Prince& prince, const Fox& fox, const Rose& rose,
+               SDL_Renderer* renderer, int rose_x, int rose_y) {
     int window_w, window_h;
     SDL_GetRendererOutputSize(renderer, &window_w, &window_h);
     auto tile_w = window_w/16;
@@ -86,18 +85,27 @@ int main(int argc, char *argv[])
     menu.show();
     int chosen_level = menu.get_chosen_level();
     const char *current_level;
+    int rose_x, rose_y;
     switch (chosen_level) {
     case 0:
         current_level = Map::level_easy;
+        rose_x = 5;
+        rose_y = 7;
         break;
     case 1:
         current_level = Map::level_medium;
+        rose_x = 2;
+        rose_y = 2;
         break;
     case 2:
         current_level = Map::level_hard;
+        rose_x = 10;
+        rose_y = 3;
         break;
     default:
         current_level = Map::level_easy;
+        rose_x = 5;
+        rose_y = 7;
         break;
     }
 
@@ -108,7 +116,7 @@ int main(int argc, char *argv[])
     Map map(renderer, current_level);
     Fox fox(renderer);
     Prince prince(renderer);
-    Rose rose(renderer, "assets/rose.bmp", 5, 7);
+    Rose rose(renderer, "assets/rose.bmp", rose_x, rose_y);
 
     while (still_playing) {
         SDL_Event event;
@@ -127,7 +135,7 @@ int main(int argc, char *argv[])
 
         game_time += dt;
 
-        if (find_rose(prince, fox,rose, renderer)) {
+        if (find_rose(prince, fox,rose, renderer, rose_x, rose_y)) {
             show_win_screen(renderer, win_background_texture.get());
             break;
         }
