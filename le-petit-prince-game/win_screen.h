@@ -7,7 +7,7 @@
 
 std::shared_ptr<SDL_Texture> load_image(SDL_Renderer *renderer, const std::string &file_path);
 
-int show_win_screen(SDL_Renderer* renderer, SDL_Texture* win_background) {
+int show_win_screen(SDL_Renderer* renderer, SDL_Texture* win_background, const Time_Counter& time_counter) {
     SDL_Event event;
 
     while (true) {
@@ -24,6 +24,7 @@ int show_win_screen(SDL_Renderer* renderer, SDL_Texture* win_background) {
 
         SDL_RenderClear(renderer); // Clear the screen
         SDL_RenderCopy(renderer, win_background, NULL, NULL);
+        time_counter.render(512, 494);
         SDL_RenderPresent(renderer); // Present the screen
     }
 }
